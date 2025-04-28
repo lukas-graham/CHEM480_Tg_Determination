@@ -1,0 +1,48 @@
+title                   = IDTBT NPT equilibration    # Tg
+;define                 = -DPOSRES  ; position restrain the protein
+; Run parameters
+integrator              = md        ; leap-frog integrator
+nsteps                  = 167000000  ; 1 fs * 167000000 = 165 ns
+dt                      = 0.001     ; 1 fs
+; Output control
+nstxout-compressed      = 760000      ; save coordinates every 760 ps
+nstenergy               = 100000      ; save energies every 100 ps
+nstlog                  = 100000      ; update log file every 100 ps
+; Bond parameters
+continuation            = no        ; first dynamics run
+constraint_algorithm    = lincs     ; holonomic constraints
+lincs_iter              = 1         ; accuracy of LINCS
+lincs_order             = 4         ; also related to accuracy
+; Nonbonded settings
+cutoff-scheme           = Verlet    ; Buffered neighbor searching
+ns_type                 = grid      ; search neighboring grid cells
+nstlist                 = 20        ; 20 fs, largely irrelevant with Verlet
+rcoulomb                = 1.0       ; short-range electrostatic cutoff (in nm)
+rvdw                    = 1.0       ; short-range van der Waals cutoff (in nm)
+DispCorr                = EnerPres  ; account for cut-off vdW scheme
+; Electrostatics
+coulombtype             = PME       ; Particle Mesh Ewald for long-range electrostatics
+pme_order               = 4         ; cubic interpolation
+fourierspacing          = 0.16      ; grid spacing for FFT
+; Temperature coupling is on
+tcoupl                  = v-rescale             ; modified Berendsen thermostat
+tc-grps                 =  system       ; two coupling groups - more accurate
+tau_t                   =      0.1           ; time constant, in ps
+ref_t                   =      1200           ; reference temperature, one for each group, in K
+; Pressure coupling is on
+pcoupl                  = C-rescale        ;
+pcoupltype                      = isotropic
+tau_p                           = 3.0             ; time constant, in ps
+ref_p                           = 1.0              ;reference pressure, in bar
+compressibility         = 4.5e-5
+refcoord_scaling                = com
+; Periodic boundary conditions
+pbc                     = xyz       ; 3-D PBC
+; Velocity generation
+gen_vel                 = no       ; assign velocities from Maxwell distribution
+; Simulated annealing
+annealing               = single
+annealing_npoints       = 112
+annealing_time          = 0	2000	3000	5000	6000	8000	9000	11000	12000	14000	15000	17000	18000	20000	21000	23000	24000	26000	27000	29000	30000	32000	33000	35000	36000	38000	39000	41000	42000	44000	45000	47000	48000	50000	51000	53000	54000	56000	57000	59000	60000	62000	63000	65000	66000	68000	69000	71000	72000	74000	75000	77000	78000	80000	81000	83000	84000	86000	87000	89000	90000	92000	93000	95000	96000	98000	99000	101000	102000	104000	105000	107000	108000	110000	111000	113000	114000	116000	117000	119000	120000	122000	123000	125000	126000	128000	129000	131000	132000	134000	135000	137000	138000	140000	141000	143000	144000	146000	147000	149000	150000	152000	153000	155000	156000	158000	159000	161000	162000	164000	165000 167000
+annealing_temp          = 1200 1200 1180 1180 1160 1160 1140 1140 1120 1120 1100 1100 1080 1080 1060 1060 1040 1040 1020 1020 1000 1000 980 980 960 960 940 940 920 920 900 900 880 880 860 860 840 840 820 820 800 800 780 780 760 760 740 740 720 720 700 700 680 680 660 660 640 640 620 620 600 600 580 580 560 560 540 540 520 520 500 500 480 480 460 460 440 440 420 420 400 400 380 380 360 360 340 340 320 320 300 300 280 280 260 260 240 240 220 220 200 200 180 180 160 160 140 140 120 120 100 100
+
